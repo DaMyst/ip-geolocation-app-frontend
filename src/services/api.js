@@ -16,10 +16,11 @@ const getApiUrl = () => {
 
 const api = axios.create({
   baseURL: getApiUrl(),
-  // Only include credentials in development
-  withCredentials: process.env.NODE_ENV !== 'production',
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
   },
 });
 
