@@ -13,7 +13,7 @@ const authService = {
         console.warn('Could not get public IP:', ipError);
       }
       
-      const response = await api.post('/auth/login', { 
+      const response = await api.post('api/auth/login', { 
         email, 
         password,
         ipAddress
@@ -35,7 +35,7 @@ const authService = {
 
   register: async (email, password) => {
     try {
-      const response = await api.post('/auth/register', { email, password });
+      const response = await api.post('/api/auth/register', { email, password });
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.error || 'Registration failed');

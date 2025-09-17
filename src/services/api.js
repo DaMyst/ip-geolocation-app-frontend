@@ -2,7 +2,12 @@ import axios from 'axios';
 
 // Determine the API URL based on the environment
 const getApiUrl = () => {
-  return process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+  // In production, the API is at the same domain but under /api path
+  if (process.env.NODE_ENV === 'production') {
+    return '/api';
+  }
+  // In development, use the full URL from environment variable or default to localhost
+  return process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 };
 
 const api = axios.create({
@@ -12,13 +17,12 @@ const api = axios.create({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
     'X-Requested-With': 'XMLHttpRequest'
-  },
-  crossDomain: true,
-  withCredentials: true
+  }
 });
 
-// Ensure credentials are sent with every request
-api.defaults.withCredentials = true;
+// Set default headers for all requests
+api.defaults.headers.common['Content-Type'] = 'application/json';
+api.defaults.headers.common['Accept'] = 'application/json';
 
 // Add a request interceptor to add the auth token to requests
 api.interceptors.request.use(
