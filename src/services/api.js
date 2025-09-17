@@ -13,7 +13,12 @@ const api = axios.create({
     'Accept': 'application/json',
     'X-Requested-With': 'XMLHttpRequest'
   },
+  crossDomain: true,
+  withCredentials: true
 });
+
+// Ensure credentials are sent with every request
+api.defaults.withCredentials = true;
 
 // Add a request interceptor to add the auth token to requests
 api.interceptors.request.use(
