@@ -2,9 +2,9 @@ import axios from 'axios';
 
 // Determine the API URL based on the environment
 const getApiUrl = () => {
-  // In production, the API is at the same domain but under /api path
+  // In production, use the full backend URL from environment variable
   if (process.env.NODE_ENV === 'production') {
-    return '/api';
+    return process.env.REACT_APP_API_URL || 'https://ip-geolocation-app-backend.vercel.app/api';
   }
   // In development, use the full URL from environment variable or default to localhost
   return process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
